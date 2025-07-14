@@ -43,7 +43,7 @@ with app.app_context():
 @app.route('/agents', methods=['GET'])
 def get_agents():
     agents = Agents.query.all()
-    query = Agents.query.all()
+    query = Agents.query
 
     code_name = request.args.get('code-name', '').strip()
     email = request.args.get('email', '').strip()
