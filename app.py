@@ -47,7 +47,7 @@ def get_agents():
 
     code_name = request.args.get('code-name', '').strip()
     email = request.args.get('email', '').strip()
-    secret_level = request.args.get('secret-level', '')
+    secret_level = request.args.get('secret-level', '').upper()
 
     if code_name:
         query = query.filter(Agents.code_name.ilike(f'%{code_name}%'))
@@ -68,6 +68,7 @@ def get_agents():
             query = query.order_by(Agents.id.desc())
         case 'old':
             query = query.order_by(Agents.id.asc())
+
 
     match sort_email:
         case 'asc':

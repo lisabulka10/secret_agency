@@ -23,15 +23,15 @@
                 <div class="card-body">
                     <form method="GET" action="/agents" class="mb-3" id="filter-form" name="filter-form">
                         <div class="row g-3 align-items-center">
-                            <!-- Code Name sort + filter -->
+
                             <div class="col-md-2 col-sm-4">
                                 <label for="sort-code-name" class="form-label mb-0">Code Name</label>
                                 <select class="form-select form-select-sm autosubmit" id="sort-code-name" name="sort-code-name">
-                                    <option value="" selected>—</option>
-                                    <option value="asc">A-Z</option>
-                                    <option value="desc">Z-A</option>
-                                    <option value="new">New first</option>
-                                    <option value="old">Old first</option>
+                                    <option value="" {% if not request.args.get('sort-code-name') %} selected {% endif %}>—</option>
+                                    <option value="asc" {% if request.args.get('sort-code-name') == 'asc' %} selected {% endif %}>A-Z</option>
+                                    <option value="desc" {% if request.args.get('sort-code-name') == 'desc' %} selected {% endif %}>Z-A</option>
+                                    <option value="new" {% if request.args.get('sort-code-name') == 'new' %} selected {% endif %}>New first</option>
+                                    <option value="old" {% if request.args.get('sort-code-name') == 'old' %} selected {% endif %}>Old first</option>
                                 </select>
                             </div>
                             <div class="col-md-3 col-sm-8">
@@ -40,13 +40,12 @@
                                 value="{{ request.args.get('code-name', '') }}" placeholder="Enter code name">
                             </div>
 
-                            <!-- Email sort + filter -->
                             <div class="col-md-2 col-sm-4">
                                 <label for="sort-email" class="form-label mb-0">Email</label>
                                 <select class="form-select form-select-sm autosubmit" id="sort-email" name="sort-email">
-                                    <option value="" selected>—</option>
-                                    <option value="asc">A-Z</option>
-                                    <option value="desc">Z-A</option>
+                                    <option value="" {% if not request.args.get('sort-email') %} selected {% endif %}>—</option>
+                                    <option value="asc" {% if request.args.get('sort-email') == 'asc' %} selected {% endif %}>A-Z</option>
+                                    <option value="desc" {% if request.args.get('sort-email') == 'desc' %} selected {% endif %}>Z-A</option>
                                 </select>
                             </div>
                             <div class="col-md-3 col-sm-8">
@@ -55,13 +54,12 @@
                                     value="{{ request.args.get('email', '') }}" placeholder="Enter email">
                             </div>
 
-                            <!-- Secret Level filter -->
                             <div class="col-md-2 col-sm-6">
                                 <label for="secret-level" class="form-label mb-0">Secret Level</label>
                                 <select class="form-select form-select-sm autosubmit" id="secret-level" name="secret-level">
-                                    <option value="">All</option>
-                                    <option value="{{ secret_level.SECRET }}">Secret</option>
-                                    <option value="{{ secret_level.SUPERSECRET }}">Super Secret</option>
+                                    <option value="" {% if not request.args.get('secret-level') %} selected {% endif %}>All</option>
+                                    <option value=secret {% if request.args.get('secret-level') == 'secret' %} selected {% endif %}>Secret</option>
+                                    <option value="supersecret" {% if request.args.get('secret-level') == 'supersecret' %} selected {% endif %}>Super Secret</option>
                                 </select>
                             </div>
 
